@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudySprint — AI Exam Planner</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">Study<span>Sprint</span></div>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#upload" class="nav-cta">Start Planning →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-blob b1"></div>
+    <div class="hero-blob b2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">AI-Powered · Built for Students</div>
+      <h1>Ace your exams.<br/><em>Without the panic.</em></h1>
+      <p class="hero-sub">Upload your syllabus and exam dates. StudySprint builds a personalised daily study plan, predicts your weak spots, and keeps you motivated — automatically.</p>
+      <a href="#upload" class="btn-primary">Generate My Plan <span>↗</span></a>
+    </div>
+    <div class="hero-cards">
+      <div class="hcard hcard-1">
+        <div class="hcard-icon">📅</div>
+        <div class="hcard-label">Daily Schedule</div>
+        <div class="hcard-val">Auto-generated</div>
+      </div>
+      <div class="hcard hcard-2">
+        <div class="hcard-icon">🔄</div>
+        <div class="hcard-label">Revision Cycles</div>
+        <div class="hcard-val">Spaced Repetition</div>
+      </div>
+      <div class="hcard hcard-3">
+        <div class="hcard-icon">🎯</div>
+        <div class="hcard-label">Weak Topics</div>
+        <div class="hcard-val">AI Predicted</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-header">
+      <span class="section-tag">The Process</span>
+      <h2>Three steps to exam-ready</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Upload your syllabus</h3>
+          <p>Drop in your syllabus PDF or paste the topics. Add your exam dates and available study hours.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>AI analyses & plans</h3>
+          <p>Claude reads your topics, weighs them by complexity, and maps a custom study schedule with spaced revision cycles.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Study with confidence</h3>
+          <p>Follow your daily plan, get weak-topic alerts, and receive motivational summaries to keep your momentum.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOAD / INPUT SECTION -->
+  <section class="upload-section" id="upload">
+    <div class="upload-inner">
+      <div class="upload-left">
+        <span class="section-tag">Let's build your plan</span>
+        <h2>Tell us about your exam</h2>
+        <p>The more detail you give, the smarter your plan will be.</p>
+
+        <div class="form-group">
+          <label>Subject / Exam Name</label>
+          <input type="text" id="examName" placeholder="e.g. Class 12 Physics Board Exam" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Exam Date</label>
+            <input type="date" id="examDate" />
+          </div>
+          <div class="form-group">
+            <label>Daily Study Hours</label>
+            <input type="number" id="studyHours" placeholder="e.g. 3" min="1" max="12" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Syllabus Topics <span class="label-hint">(one per line or paste from PDF)</span></label>
+          <textarea id="syllabusInput" rows="7" placeholder="Chapter 1: Electric Charges and Fields&#10;Chapter 2: Electrostatic Potential&#10;Chapter 3: Current Electricity&#10;Chapter 4: Moving Charges and Magnetism&#10;..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Topics you find difficult <span class="label-hint">(optional)</span></label>
+          <input type="text" id="weakTopics" placeholder="e.g. Electrostatics, Optics, Thermodynamics" />
+        </div>
+
+        <button class="btn-primary btn-generate" id="generateBtn" onclick="generatePlan()">
+          <span id="btnText">Generate My Study Plan ↗</span>
+          <span id="btnLoader" style="display:none">Thinking…</span>
+        </button>
+      </div>
+
+      <div class="upload-right">
+        <div class="preview-box" id="previewBox">
+          <div class="preview-empty" id="previewEmpty">
+            <div class="preview-icon">🧠</div>
+            <p>Your personalised plan will appear here once you hit <strong>Generate</strong>.</p>
+          </div>
+          <div id="planOutput" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <section class="features">
+    <div class="feat">
+      <div class="feat-icon">📆</div>
+      <div>
+        <h4>Daily Study Plan</h4>
+        <p>A clear topic-by-topic schedule from today to exam day, balanced for your hours.</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔁</div>
+      <div>
+        <h4>Revision Cycles</h4>
+        <p>Spaced-repetition built in — topics revisited at optimal intervals so nothing fades.</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">⚠️</div>
+      <div>
+        <h4>Weak Topic Prediction</h4>
+        <p>AI identifies high-risk areas based on complexity and your self-reported gaps.</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">💬</div>
+      <div>
+        <h4>Motivational Summaries</h4>
+        <p>Daily pep-talks and progress snapshots to keep you locked in when energy dips.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">Study<span>Sprint</span></div>
+    <p>Built with Claude AI · Made for students everywhere</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
